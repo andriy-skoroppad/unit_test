@@ -14,13 +14,13 @@ describe('app.js testing', function (){
             var result = $scope.testWithText('my text');
             expect(result).toBe('my text -A');
         });
-        it('set number', function(){
+        xit('set number', function(){
             var result = $scope.testWithText(10);
             expect(result).toBe('10 -A');
         });
-        xit('set object', function(){
+        it('set object', function(){
             var result = $scope.testWithText({d:12});
-            expect(result).toBe('{d:12} -A');
+            expect(result).toBe('[object Object] -A');
         });
 
     });
@@ -37,6 +37,22 @@ describe('app.js testing', function (){
         it('set string', function(){
             var result = $scope.testWithMass( 'string' );
             expect(result).toBe(false);
+        });
+
+    });
+
+    describe('getFrom plus to number maris', function (){
+        it('number', function(){
+            var result = $scope.getFrom($scope.maris,  5 );
+            expect(result).toBe( 15 );
+        });
+        it('string', function(){
+            var result = $scope.getFrom( $scope.maris, '5' );
+            expect(result).toBe( 15 );
+        });
+        it('object', function(){
+            var result = $scope.getFrom( $scope.maris, [10] );
+            expect(result).toBe( 10 );
         });
 
     });
