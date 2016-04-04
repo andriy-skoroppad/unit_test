@@ -41,3 +41,10 @@ function tipe( object ){
     };
     return typeof (object);
 }
+
+function twoObject( object1, object2){
+    
+}
+function twoArray( arry1, arry2){
+
+}
