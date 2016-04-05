@@ -30,7 +30,7 @@
     AndrLibrary.prototype.compareObject = function (objectOne, objectTwo){
         var tipe1 = this.tipe(objectOne);
         var tipe2 = this.tipe(objectTwo);
-        if(tipe1 === tipe2 ){
+        if(tipe1 && tipe2 && tipe1 === tipe2 ){
             switch ( tipe1 ) {
                 case 'function':
                 case 'boolean':
