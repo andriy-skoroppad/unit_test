@@ -6,11 +6,6 @@
         this.set = this._set;
         this.go = this._go;
     }
-
-    function AndrLibrary(){
-        this.author = "Skoropad Andriy";
-        this.listener = new Listener();
-    }
     Listener.prototype._set = function(name, fun){
         if( !this.elements[name] ){//createElement if does not exist element
             this.elements[name] = document.createElement( name );
@@ -27,6 +22,63 @@
         this.elements[name].click();
         return true;
     }
+
+
+    function AndrLibrary(){
+        this.author = "Skoropad Andriy";
+        this.listener = new Listener();
+/*
+        var arraySet;
+        this.arraySet = function (array){
+            if(array && this.type(array) == 'array'){
+                arraySet = array;
+            } else {
+                return arraySet;
+            };
+        };
+*/
+    }
+
+    AndrLibrary.prototype.in = function(array){
+        var main = this;
+
+        var indexOF = function (object){
+            var tipe = main.tipe(array);
+            if( tipe == 'array'){
+                var length = array.length;
+                for(var i = 0; i < length; i++){
+                    if( main.compareObject(array[i], object) ){
+                        return i;
+                    };
+                };
+                return -1;
+
+            } else {
+                console.alert('This is not Array.');
+            }
+        };
+
+            return {
+                indexOf: indexOF
+            };
+    }
+    /*
+    AndrLibrary.prototype.indexOF = function (array, object){
+        var tipe = this.tipe(array);
+        if( tipe == 'array'){
+            var length = array.length;
+            for(var i = 0; i < length; i++){
+                if( this.compareObject(array[i], object) ){
+                    return i;
+                };
+            };
+            return -1;
+
+        } else {
+            console.alert('This is not Array.');
+        }
+    }
+    */
     AndrLibrary.prototype.compareObject = function (objectOne, objectTwo){
         var tipe1 = this.tipe(objectOne);
         var tipe2 = this.tipe(objectTwo);
@@ -164,5 +216,5 @@
         };
         return true;
     };
-    window.andrLibrary = new AndrLibrary();
+    window.andrLibrary = window.aLi = new AndrLibrary();
 })();
