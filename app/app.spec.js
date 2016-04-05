@@ -1,5 +1,5 @@
 
-describe('app.js testing', function (){
+describe('app.js testing>>>>>', function (){
    console.log('jasmine-version:' + jasmine.version, 'Andriy Skoropad');
     var $rootScope = null;
     var $scope = null;

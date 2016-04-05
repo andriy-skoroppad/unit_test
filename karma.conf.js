@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
         'bower_components/angular/angular.js',
         'bower_components/angular-mocks/angular-mocks.js',
+        'app/andr-library-0.1.js',
         'app/app.js',
         'app/app.spec.js'
     ],
@@ -24,7 +25,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        'jquery-2.2.2.js'
     ],
 
 
