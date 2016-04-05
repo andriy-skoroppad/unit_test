@@ -24,6 +24,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+        'jquery-2.2.2.js'
     ],
 
 
