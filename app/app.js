@@ -26,12 +26,10 @@ function myTestContrl($scope){
         };
         return data + number;
     };
-
-
 };
 
-var ar1 = [[54, 45], 'aaa', 'dfdf', [10, 25]];
-var ar2 = [[54, 45], 'aaa', 'dfdf', [10, 25]];
+var ar1 = [[54, 45], 'aaa', 'dfdf', [10, 25], null, undefined, true, false, true, NaN];
+var ar2 = [[54, 45], 'aaa', 'dfdf', [10, 25], null, NaN, true, false, undefined , true];
 var obj1 = {a:10, hy: {a:{a:[10, 5], hy: 'ddd'}, hy: 'ddd'}};
 var obj2 = {a:10, hy: {a:{a:[10, 5], hy: 'ddd'}, hy: 'ddd'}};
 console.log( 'twoArray>>>>>>>', andrLibrary.compareObject( ar1, ar2) );
@@ -45,3 +43,15 @@ andrLibrary.listener.set('data-my', function(){
     console.log('data-my2');
 });
 andrLibrary.listener.go('data-my');
+
+function con(){
+    console.log("wwwwww");
+};
+function con2(){
+    console.log("wwwwww");
+};
+console.log("function>", typeof ( con ));
+console.log("NaN>", typeof ( NaN ));
+console.log("null>", typeof ( null ));
+console.log("undefined>", typeof ( undefined ));
+console.log("true / false>", typeof ( true ));

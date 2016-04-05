@@ -9,11 +9,6 @@
 
     function AndrLibrary(){
         this.author = "Skoropad Andriy";
-        /* this.listener = {
-         elements : {}
-         };
-         this.listener.set = this._set.bind(this);
-         this.listener.go = this._go.bind(this);*/
         this.listener = new Listener();
     }
     Listener.prototype._set = function(name, fun){
@@ -35,8 +30,13 @@
     AndrLibrary.prototype.compareObject = function (objectOne, objectTwo){
         var tipe1 = this.tipe(objectOne);
         var tipe2 = this.tipe(objectTwo);
-        if(tipe1 && tipe2 && tipe1 === tipe2 ){
+        if(tipe1 === tipe2 ){
             switch ( tipe1 ) {
+                case 'function':
+                case 'boolean':
+                case 'NaN':
+                case 'null':
+                case 'undefined':
                 case 'string':
                 case 'number':
                     return this.chakTwoData(objectOne, objectTwo);
@@ -54,9 +54,21 @@
     };
 
     AndrLibrary.prototype.tipe = function( object ){
-        if(!object && object != 0 && object != ''){
+        if(!object && object != 0 && object != '' && object != false){
+            switch ( typeof (object) ){
+                case 'number':
+                    return 'NaN';
+                    break;
+                case 'object':
+                    return 'null';
+                    break;
+                case 'undefined':
+                    return 'undefined';
+                    break;
+            };
             return false;
-        }
+        };
+
         if(typeof (object) == 'object'){
             if( object.length >= 0 ){
                 return 'array';
@@ -70,7 +82,7 @@
         var tipe1 = this.tipe(data1);
         var tipe2 = this.tipe(data2);
         if( tipe1 === tipe2 ){
-            if( data1 === data2){
+            if( data1 == data2 || (data1 != data1 && data2 != data2)){
                 return true;
             }
         };
@@ -83,6 +95,11 @@
         if( this.twoArray(key1, key2) ){
             for(var key in object1){
                 switch ( this.tipe( object1[key] ) ) {
+                    case 'function':
+                    case 'boolean':
+                    case 'NaN':
+                    case 'null':
+                    case 'undefined':
                     case 'string':
                     case 'number':
                         if( !this.chakTwoData(object1[key], object2[key]) ){
@@ -100,7 +117,7 @@
                         };
                         break;
                     default:
-                        return false
+                        return false;
                         break;
                 };
             }
@@ -111,9 +128,16 @@
         return true;
     }
     AndrLibrary.prototype.twoArray = function( arry1, arry2){
-        if(arry1.length == arry2.length){
-            for (var i = 0; i < arry1.length; i++) {
+        var length1 = arry1.length;
+        var length2 = arry2.length;
+        if(length1 == length2){
+            for (var i = 0; i < length1; i++) {
                 switch ( this.tipe( arry1[i] ) ) {
+                    case 'function':
+                    case 'boolean':
+                    case 'NaN':
+                    case 'null':
+                    case 'undefined':
                     case 'string':
                     case 'number':
                         if( !this.chakTwoData(arry1[i], arry2[i]) ){
