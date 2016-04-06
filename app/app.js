@@ -34,7 +34,7 @@ var obj1 = {a:10, hy: {a:{a:[10, 5], hy: 'ddd'}, hy: 'ddd'}};
 var obj2 = {a:10, hy: {a:{a:[10, 5], hy: 'ddd'}, hy: 'ddd'}};
 console.log( 'twoArray>>>>>>>', aLi.compareObject( ar1, ar2) );
 console.log( 'twoObject>>>>>>>', andrLibrary.compareObject( obj1, obj2) );
-console.log( 'indexOF - 3 >>>>>>>', aLi.in( ar1).indexOf([54, 45]) );
+console.log( 'indexOF - 3 >>>>>>>', aLi.in( ar1 ).indexOf([54, 45]) );
 console.log( 'indexOF - 1 >>>>>>>', andrLibrary.in(ar1).indexOf('aaa') );
 
 

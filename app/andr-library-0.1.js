@@ -23,7 +23,7 @@
         return true;
     }
 
-
+var main;
     function AndrLibrary(){
         this.author = "Skoropad Andriy";
         this.listener = new Listener();
@@ -37,14 +37,20 @@
             };
         };
 */
+        main = this;
     }
 
     var indexOF = function (object){
-        var tipe = this.tipe(this._array);
+        
+        console.log(object);
+        console.log(this);
+        console.log(array);
+
+        var tipe = this.tipe(array);
         if( tipe == 'array'){
-            var length = this._array.length;
+            var length = array.length;
             for(var i = 0; i < length; i++){
-                if( this.compareObject(this._array[i], object) ){
+                if( this.compareObject(array[i], object) ){
                     return i;
                 };
             };
@@ -57,13 +63,51 @@
     };
 
     AndrLibrary.prototype.in = function(array){
-        var main = this;
-        this._array = array;
+        var prepearObj = new forIn(array);
+        /*
+        prepearObj.array = array;
+        prepearObj.prototype.indexOf = function (object){
 
-            return {
-                indexOf: indexOF.bind(main)
+                var tipe = main.tipe(this.array);
+                if( tipe == 'array'){
+                    var length = this.array.length;
+                    for(var i = 0; i < length; i++){
+                        if( main.compareObject(array[i], object) ){
+                            return i;
+                        };
+                    };
+                    return -1;
+
+                } else {
+                    console.error('This is not Array. This is "' + tipe + '"!');
+                    return -1;
+                }
             };
+*/
+        return prepearObj;
     }
+
+    function forIn (array){
+        this.array = array;
+    }
+
+    forIn.prototype.indexOf = function (object){
+
+                var tipe = main.tipe(this.array);
+                if( tipe == 'array'){
+                    var length = this.array.length;
+                    for(var i = 0; i < length; i++){
+                        if( main.compareObject(this.array[i], object) ){
+                            return i;
+                        };
+                    };
+                    return -1;
+
+                } else {
+                    console.error('This is not Array. This is "' + tipe + '"!');
+                    return -1;
+                }
+            };
     /*
     AndrLibrary.prototype.indexOF = function (array, object){
         var tipe = this.tipe(array);
