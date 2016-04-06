@@ -39,28 +39,29 @@
 */
     }
 
+    var indexOF = function (object){
+        var tipe = this.tipe(this._array);
+        if( tipe == 'array'){
+            var length = this._array.length;
+            for(var i = 0; i < length; i++){
+                if( this.compareObject(this._array[i], object) ){
+                    return i;
+                };
+            };
+            return -1;
+
+        } else {
+            console.error('This is not Array. This is "' + tipe + '"!');
+            return -1;
+        }
+    };
+
     AndrLibrary.prototype.in = function(array){
         var main = this;
-
-        var indexOF = function (object){
-            var tipe = main.tipe(array);
-            if( tipe == 'array'){
-                var length = array.length;
-                for(var i = 0; i < length; i++){
-                    if( main.compareObject(array[i], object) ){
-                        return i;
-                    };
-                };
-                return -1;
-
-            } else {
-                console.error('This is not Array. This is "' + tipe + '"!');
-                return -1;
-            }
-        };
+        this._array = array;
 
             return {
-                indexOf: indexOF
+                indexOf: indexOF.bind(main)
             };
     }
     /*
