@@ -1,0 +1,16 @@
+img, object{
+   height: 100px;
+   width: 100px;
+}
+*{
+  vertical-align: middle;
+}
+
+.logo {
+	display: block;
+	height: 100px;
+	width: 100px;
+  	background: url("star_full.svg");
+    background-repeat: no-repeat;
+}
+
