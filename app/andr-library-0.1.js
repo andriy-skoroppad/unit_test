@@ -16,7 +16,7 @@
     }
     Listener.prototype._go = function(name){
         if( !this.elements[name] ){
-            console.warn('This name ( ' + name + ' ) does not exist.');
+            console.error('This name ( ' + name + ' ) does not exist.');
             return false;
         }
         this.elements[name].click();
@@ -54,7 +54,8 @@
                 return -1;
 
             } else {
-                console.alert('This is not Array.');
+                console.error('This is not Array. This is "' + tipe + '"!');
+                return -1;
             }
         };
 
