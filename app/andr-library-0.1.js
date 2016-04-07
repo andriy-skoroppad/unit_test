@@ -46,8 +46,8 @@ var main;
         console.log(this);
         console.log(array);
 
-        var tipe = this.tipe(array);
-        if( tipe == 'array'){
+        var type = this.type(array);
+        if( type == 'array'){
             var length = array.length;
             for(var i = 0; i < length; i++){
                 if( this.compareObject(array[i], object) ){
@@ -57,7 +57,7 @@ var main;
             return -1;
 
         } else {
-            console.error('This is not Array. This is "' + tipe + '"!');
+            console.error('This is not Array. This is "' + type + '"!');
             return -1;
         }
     };
@@ -73,8 +73,8 @@ var main;
 
     ForIn.prototype.indexOf = function (object){
 
-        var tipe = main.tipe(this.mainObject);
-        if( tipe == 'array'){
+        var type = main.type(this.mainObject);
+        if( type == 'array'){
             var length = this.mainObject.length;
             for(var i = 0; i < length; i++){
                 if( main.compareObject(this.mainObject[i], object) ){
@@ -84,7 +84,7 @@ var main;
             return -1;
 
         } else {
-            console.error('This is not Array. This is "' + tipe + '"!');
+            console.error('This is not Array. This is "' + type + '"!');
             return -1;
         }
     };
@@ -93,10 +93,10 @@ var main;
         
     };
     ForIn.prototype.mergeElement = function (mainObject, object){
-        var tipe1 = main.tipe(mainObject);
-        var tipe2 = main.tipe(object);
-        if( tipe1 == tipe2 ){
-            switch ( tipe1 ) {
+        var type1 = main.type(mainObject);
+        var type2 = main.type(object);
+        if( type1 == type2 ){
+            switch ( type1 ) {
             case 'function':
             case 'boolean':
             case 'NaN':
@@ -111,45 +111,87 @@ var main;
         
         return mainObject;
     };
+
     ForIn.prototype.mergeArray = function (mainObject, array){
-        var tipe1 = main.tipe(mainObject);
-        var tipe2 = main.tipe(array);
-        if(tipe1 == tipe2 && tipe1 == 'array'){
+        
+        var type1 = main.type(mainObject);
+        var type2 = main.type(array);
+
+        if( type1 == 'array' && type2 == 'array'){
+            var objectNew = [];
             var length1 = mainObject.length;
             var length2 = array.length;
-            /*
-            if(length1 < length2){
-                for (var i = length1; i < length2; i++) {
-                    mainObject.push(array[i]);
-                };
+
+            for (var i = 0; i < length1 || i < length2; i++) {
+                if(i < length1){
+                     switch ( main.type(mainObject[i]) ) {
+                        case 'function':
+                        case 'boolean':
+                        case 'NaN':
+                        case 'null':
+                        case 'undefined':
+                        case 'string':
+                        case 'number':
+                            objectNew.push( mainObject[i] );
+                            break;
+                        case 'array':
+                            if(i < length2){
+                                objectNew.push( this.mergeArray(mainObject[i], array[i]) );
+                            } else {
+                                objectNew.push( mainObject[i] );
+                            };
+                            break;
+                        case 'object':
+                            this.twoObject( objectOne, objectTwo);
+                            break;
+                    };
+                } else if ( i >= length1 && i < length2){
+                    objectNew.push( array[i] );
+                }
+               
             }
-            */
-             switch ( tipe1 ) {
-                case 'function':
-                case 'boolean':
-                case 'NaN':
-                case 'null':
-                case 'undefined':
-                case 'string':
-                case 'number':
-                    return this.chakTwoData(objectOne, objectTwo);
-                    break;
-                case 'array':
-                    return this.twoArray( objectOne, objectTwo);
-                    break;
-                case 'object':
-                    return this.twoObject( objectOne, objectTwo);
-                    break;
-            };
-
+             
+        
+        return objectNew;
+        } else {
+            return mainObject;
         }
-
-        return mainObject;
     };
+    ForIn.prototype.mergeObject = function (mainObject, object){
+        var type1 = main.type(mainObject);
+        var type2 = main.type(object);
+        var keys1 = Object.keys(mainObject);
+        var keys2 = Object.keys(object);
+
+        if(type1 == 'object' && type2 == 'object'){
+            for( var key in mainObject ){
+                switch ( main.type(mainObject[key]) ) {
+                        case 'function':
+                        case 'boolean':
+                        case 'NaN':
+                        case 'null':
+                        case 'undefined':
+                        case 'string':
+                        case 'number':
+                            break;
+                        case 'array':
+                            this.mergeArray(mainObject[key], object[key])
+                            break;
+                        case 'object':
+                            this.twoObject( objectOne, objectTwo);
+                            break;
+                    };
+            }
+        }
+        
+
+
+    }
+
     /*
     AndrLibrary.prototype.indexOF = function (array, object){
-        var tipe = this.tipe(array);
-        if( tipe == 'array'){
+        var type = this.type(array);
+        if( type == 'array'){
             var length = array.length;
             for(var i = 0; i < length; i++){
                 if( this.compareObject(array[i], object) ){
@@ -161,13 +203,16 @@ var main;
         } else {
             console.alert('This is not Array.');
         }
+
+        Release-2016-04-07-gcMarketplace-317-Stars_on_Marketplace
+        @( One more image) :: Stars on Marketplace
     }
     */
     AndrLibrary.prototype.compareObject = function (objectOne, objectTwo){
-        var tipe1 = this.tipe(objectOne);
-        var tipe2 = this.tipe(objectTwo);
-        if(tipe1 && tipe2 && tipe1 === tipe2 ){
-            switch ( tipe1 ) {
+        var type1 = this.type(objectOne);
+        var type2 = this.type(objectTwo);
+        if(type1 && type2 && type1 === type2 ){
+            switch ( type1 ) {
                 case 'function':
                 case 'boolean':
                 case 'NaN':
@@ -189,7 +234,7 @@ var main;
         };
     };
 
-    AndrLibrary.prototype.tipe = function( object ){
+    AndrLibrary.prototype.type = function( object ){
         if(!object && object != 0 && object != '' && object != false){
             switch ( typeof (object) ){
                 case 'number':
@@ -215,9 +260,9 @@ var main;
         return typeof (object);
     }
     AndrLibrary.prototype.chakTwoData = function(data1, data2){
-        var tipe1 = this.tipe(data1);
-        var tipe2 = this.tipe(data2);
-        if( tipe1 === tipe2 ){
+        var type1 = this.type(data1);
+        var type2 = this.type(data2);
+        if( type1 === type2 ){
             if( data1 == data2 || (data1 != data1 && data2 != data2)){
                 return true;
             }
@@ -230,7 +275,7 @@ var main;
         var key2 = Object.keys(object2);
         if( this.twoArray(key1, key2) ){
             for(var key in object1){
-                switch ( this.tipe( object1[key] ) ) {
+                switch ( this.type( object1[key] ) ) {
                     case 'function':
                     case 'boolean':
                     case 'NaN':
@@ -268,7 +313,7 @@ var main;
         var length2 = arry2.length;
         if(length1 == length2){
             for (var i = 0; i < length1; i++) {
-                switch ( this.tipe( arry1[i] ) ) {
+                switch ( this.type( arry1[i] ) ) {
                     case 'function':
                     case 'boolean':
                     case 'NaN':
