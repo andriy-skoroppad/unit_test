@@ -89,27 +89,31 @@ var main;
         }
     };
     ForIn.prototype.merge = function (object){
-
-        
-    };
-    ForIn.prototype.mergeElement = function (mainObject, object){
-        var type1 = main.type(mainObject);
+        var type1 = main.type(this.mainObject);
         var type2 = main.type(object);
         if( type1 == type2 ){
-            switch ( type1 ) {
-            case 'function':
-            case 'boolean':
-            case 'NaN':
-            case 'null':
-            case 'undefined':
-            case 'string':
-            case 'number':
-                return mainObject;
-                break;
-            };
+            switch ( main.type(this.mainObject) ) {
+                case 'function':
+                case 'boolean':
+                case 'NaN':
+                case 'null':
+                case 'undefined':
+                case 'string':
+                case 'number':
+                    return this.mainObject;
+                    break;
+                case 'array':
+                    return this.mergeArray(this.mainObject, object);
+                    
+                    break;
+                case 'object':
+                    return this.mergeObject( this.mainObject, object);
+                    break;
+                };
+        } else {
+            return this.mainObject;
         };
         
-        return mainObject;
     };
 
     ForIn.prototype.mergeArray = function (mainObject, array){
@@ -142,7 +146,7 @@ var main;
                             };
                             break;
                         case 'object':
-                            this.twoObject( objectOne, objectTwo);
+                            objectNew.push( this.mergeObject( mainObject[i], array[i]) );
                             break;
                     };
                 } else if ( i >= length1 && i < length2){
@@ -162,8 +166,15 @@ var main;
         var type2 = main.type(object);
         var keys1 = Object.keys(mainObject);
         var keys2 = Object.keys(object);
+        var addKeys = [];
+        for( var i = 0; i < keys2.length; i++){
+            if(keys1.indexOf(keys2[i]) == -1){
+                addKeys.push(keys2[i]);
+            };
+        };
 
         if(type1 == 'object' && type2 == 'object'){
+            var newObject = {};
             for( var key in mainObject ){
                 switch ( main.type(mainObject[key]) ) {
                         case 'function':
@@ -173,19 +184,26 @@ var main;
                         case 'undefined':
                         case 'string':
                         case 'number':
+                            newObject[key] = mainObject[key];
                             break;
                         case 'array':
-                            this.mergeArray(mainObject[key], object[key])
+                            newObject[key] = this.mergeArray( mainObject[key], object[key] )
                             break;
                         case 'object':
-                            this.twoObject( objectOne, objectTwo);
+                            newObject[key] = this.mergeObject( mainObject[key], object[key] );
                             break;
                     };
-            }
+
+            };
+
+            for( var j = 0; j < addKeys.length; j++){
+                newObject[ addKeys[j] ] = object[ addKeys[j] ];
+            };
+
+            return newObject;
+        } else {
+            return mainObject;
         }
-        
-
-
     }
 
     /*
