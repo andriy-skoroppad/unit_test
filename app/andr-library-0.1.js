@@ -92,26 +92,24 @@ var main;
 
         
     };
-    ForIn.prototype.mergeElement = function (array){
-        var tipe1 = main.tipe(this.mainObject);
-        var tipe2 = main.tipe(array);
-        if(tipe1 == tipe2){
-            switch ('function'){
-                case 'function':
-                case 'boolean':
-                case 'NaN':
-                case 'null':
-                case 'undefined':
-                case 'string':
-                case 'number':
-
+    ForIn.prototype.mergeElement = function (mainObject, object){
+        var tipe1 = main.tipe(mainObject);
+        var tipe2 = main.tipe(object);
+        if( tipe1 == tipe2 ){
+            switch ( tipe1 ) {
+            case 'function':
+            case 'boolean':
+            case 'NaN':
+            case 'null':
+            case 'undefined':
+            case 'string':
+            case 'number':
+                return mainObject;
                 break;
-
-            }
-            
-        }
-
+            };
+        };
         
+        return mainObject;
     };
     ForIn.prototype.mergeArray = function (mainObject, array){
         var tipe1 = main.tipe(mainObject);
@@ -119,11 +117,30 @@ var main;
         if(tipe1 == tipe2 && tipe1 == 'array'){
             var length1 = mainObject.length;
             var length2 = array.length;
+            /*
             if(length1 < length2){
                 for (var i = length1; i < length2; i++) {
                     mainObject.push(array[i]);
                 };
             }
+            */
+             switch ( tipe1 ) {
+                case 'function':
+                case 'boolean':
+                case 'NaN':
+                case 'null':
+                case 'undefined':
+                case 'string':
+                case 'number':
+                    return this.chakTwoData(objectOne, objectTwo);
+                    break;
+                case 'array':
+                    return this.twoArray( objectOne, objectTwo);
+                    break;
+                case 'object':
+                    return this.twoObject( objectOne, objectTwo);
+                    break;
+            };
 
         }
 
