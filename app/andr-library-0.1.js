@@ -88,9 +88,46 @@ var main;
             return -1;
         }
     };
-     ForIn.prototype.merge = function (object){
+    ForIn.prototype.merge = function (object){
 
         
+    };
+    ForIn.prototype.mergeElement = function (array){
+        var tipe1 = main.tipe(this.mainObject);
+        var tipe2 = main.tipe(array);
+        if(tipe1 == tipe2){
+            switch ('function'){
+                case 'function':
+                case 'boolean':
+                case 'NaN':
+                case 'null':
+                case 'undefined':
+                case 'string':
+                case 'number':
+
+                break;
+
+            }
+            
+        }
+
+        
+    };
+    ForIn.prototype.mergeArray = function (mainObject, array){
+        var tipe1 = main.tipe(mainObject);
+        var tipe2 = main.tipe(array);
+        if(tipe1 == tipe2 && tipe1 == 'array'){
+            var length1 = mainObject.length;
+            var length2 = array.length;
+            if(length1 < length2){
+                for (var i = length1; i < length2; i++) {
+                    mainObject.push(array[i]);
+                };
+            }
+
+        }
+
+        return mainObject;
     };
     /*
     AndrLibrary.prototype.indexOF = function (array, object){
