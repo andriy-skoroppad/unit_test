@@ -62,52 +62,36 @@ var main;
         }
     };
 
-    AndrLibrary.prototype.in = function(array){
-        var prepearObj = new forIn(array);
-        /*
-        prepearObj.array = array;
-        prepearObj.prototype.indexOf = function (object){
-
-                var tipe = main.tipe(this.array);
-                if( tipe == 'array'){
-                    var length = this.array.length;
-                    for(var i = 0; i < length; i++){
-                        if( main.compareObject(array[i], object) ){
-                            return i;
-                        };
-                    };
-                    return -1;
-
-                } else {
-                    console.error('This is not Array. This is "' + tipe + '"!');
-                    return -1;
-                }
-            };
-*/
-        return prepearObj;
+    AndrLibrary.prototype.in = function(mainObject){
+        
+        return  new ForIn(mainObject);
     }
 
-    function forIn (array){
-        this.array = array;
+    function ForIn (mainObject){
+        this.mainObject = mainObject;
     }
 
-    forIn.prototype.indexOf = function (object){
+    ForIn.prototype.indexOf = function (object){
 
-                var tipe = main.tipe(this.array);
-                if( tipe == 'array'){
-                    var length = this.array.length;
-                    for(var i = 0; i < length; i++){
-                        if( main.compareObject(this.array[i], object) ){
-                            return i;
-                        };
-                    };
-                    return -1;
-
-                } else {
-                    console.error('This is not Array. This is "' + tipe + '"!');
-                    return -1;
-                }
+        var tipe = main.tipe(this.mainObject);
+        if( tipe == 'array'){
+            var length = this.mainObject.length;
+            for(var i = 0; i < length; i++){
+                if( main.compareObject(this.mainObject[i], object) ){
+                    return i;
+                };
             };
+            return -1;
+
+        } else {
+            console.error('This is not Array. This is "' + tipe + '"!');
+            return -1;
+        }
+    };
+     ForIn.prototype.merge = function (object){
+
+        
+    };
     /*
     AndrLibrary.prototype.indexOF = function (array, object){
         var tipe = this.tipe(array);
